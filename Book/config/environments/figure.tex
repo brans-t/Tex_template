@@ -1,0 +1,29 @@
+% ======================
+% 图表与浮动体设置
+% ======================
+
+% ---------- 标题样式 ----------
+% 依赖 package.tex 中的 \usepackage{caption}
+\captionsetup[figure]{
+  font={small},          % 标题字体
+  labelfont={bf},        % 标签加粗
+  justification=centering % 居中对齐
+}
+\captionsetup[table]{
+  font={small},
+  labelfont={bf},
+  justification=centering
+}
+
+% ---------- 自定义浮动体 ----------
+% 依赖 package.tex 中的 \usepackage{float}
+\newfloat{code}{htbp}{loc} % 定义 "code" 浮动体
+\floatname{code}{程序}     % 浮动体标题名
+
+% ---------- 自定义图片环境 ----------
+\newenvironment{myfigure}[1][]{
+  \begin{figure}[#1]
+  \centering
+}{
+  \end{figure}
+}

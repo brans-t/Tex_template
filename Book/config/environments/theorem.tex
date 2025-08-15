@@ -1,0 +1,91 @@
+% ======================
+% 定理与盒子环境设置
+% 依赖宏包：
+%   amsthm, amssymb       （定理、证明环境）
+%   xcolor                （颜色定义）
+%   tcolorbox[skins,breakable] （彩色盒子）
+% ======================
+
+% ---------- 自定义颜色 ----------
+\definecolor{greenshade}{rgb}{0.9, 1, 0.9}
+\definecolor{green}{rgb}{0.2, 0.6, 0.2}
+\definecolor{axmBack}{rgb}{0.95, 0.95, 1}
+\definecolor{axmFrame}{rgb}{0.5, 0.5, 1}
+\definecolor{axmTitle}{rgb}{0.2, 0.2, 0.6}
+\definecolor{lightblue}{rgb}{0.8, 0.9, 1}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{lightyellow}{rgb}{1, 0.98, 0.9}
+\definecolor{lightcyan}{rgb}{0.9, 1, 1}
+\definecolor{SkyBlue}{rgb}{0.2,0.6,1}
+
+% ---------- amsthm 样式 ----------
+% 斜体样式（定理、引理、命题、推论）
+\newtheoremstyle{mythm}
+  {\topsep}{\topsep}{\itshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{mythm}
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{axiom}{公理}[chapter]        % 新增 axiom 环境
+
+% 非斜体样式（定义、例、注）
+\newtheoremstyle{mydef}
+  {\topsep}{\topsep}{\upshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{mydef}
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{example}{例}[chapter]
+\newtheorem{remark}{注}[chapter]
+
+% ---------- 自定义证明与解答环境 ----------
+\renewenvironment{proof}{\indent\textcolor{SkyBlue}{\textbf{证明.}}\;}{\qed\par}
+\newenvironment{solution}{\indent\textcolor{SkyBlue}{\textbf{解.}}\;}{\qed\par}
+
+% ---------- tcolorbox 自定义环境 ----------
+% 定义彩色盒子环境
+\newtcolorbox[auto counter, number within=chapter, list inside=mydefbox]{mydefinition}[1][]{
+  enhanced, breakable,
+  colback=greenshade, colframe=green, arc=3mm,
+  title={\textbf{\thetcbcounter\ #1}},
+  coltitle=black, fonttitle=\bfseries,
+  #1
+}
+
+% axiom 盒子
+\newtcolorbox[auto counter, number within=chapter]{axiombox}[1][]{
+  enhanced, breakable,
+  colback=axmBack, colframe=axmFrame, arc=3mm,
+  title={\textbf{\thetcbcounter\ #1}},
+  coltitle=axmTitle, fonttitle=\bfseries,
+  #1
+}
+
+% 注意框
+\newtcolorbox{Notice}[1][注意]{
+  colback=lightblue, colframe=black, arc=3mm,
+  title={\textbf{#1}}, coltitle=white, fonttitle=\bfseries
+}
+
+% 证明框
+\newtcolorbox{Proof}{
+  colback=lightgray, colframe=black, arc=3mm,
+  title={\textbf{证明}}, coltitle=black, fonttitle=\bfseries
+}
+
+% 推导框
+\newtcolorbox{Derivation}[1][]{
+  enhanced, breakable,
+  colback=lightyellow, colframe=black, arc=3mm,
+  title={\textbf{推导}}, coltitle=white, fonttitle=\bfseries,
+  boxsep=2mm, #1
+}
+
+% 示例框
+\newtcolorbox{examplebox}[1][示例]{
+  colback=lightcyan, colframe=black, arc=3mm,
+  title={\textbf{#1}}, coltitle=black, fonttitle=\bfseries
+}
+
+% ---------- 快捷别名 ----------
+\let\defn\definition
+% \newenvironment{axiom}[1][]{\begin{axiombox}[#1]}{\end{axiombox}}

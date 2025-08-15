@@ -1,0 +1,58 @@
+% ======================== main.tex ========================
+% 主控文件：整本书的入口
+% ----------------------------------------------------------
+% 定义 \allfiles 控制分章节编译
+\def\allfiles{}
+
+% ----------------------------------------------------------
+% 文档类
+\documentclass[12pt, a4paper, oneside, UTF8]{ctexbook}
+
+% 全局路径变量（方便修改）
+\def\path{./config}
+
+% 导入全局配置（字体、宏包、环境等）
+\input{config/_config}
+
+% ----------------------------------------------------------
+\begin{document}
+
+% 封面
+\input{config/cover}
+
+% 目录
+\tableofcontents
+\clearpage
+
+% ======================== 正文部分 ========================
+\input{Chapters/chapter1/chap1.tex}
+\input{Chapters/chapter2/chap2.tex}
+\input{Chapters/chapter3/chap3.tex}
+% ...
+
+% ======================== 附录（可选） =====================
+\appendix % 切换到附录模式
+\input{Appendix/Code/code}                 % 引入代码附录
+% \input{Appendix/Data/data}                 % 引入数据附录
+% \input{Appendix/Proofs/proofs}             % 引入证明附录
+\input{Appendix/Supplementary/supplementary} % 引入补充说明附录
+
+% ======================== 参考文献（可选） ================
+\cleardoublepage % 确保参考文献从新的一页开始
+\phantomsection % 用于 hyperref 宏包正确设置参考文献的链接
+\addcontentsline{toc}{chapter}{参考书} % 将参考书添加到目录中
+\bibliographystyle{plain} % 选择参考文献的样式
+\bibliography{References/Books/books.bib} % 引入参考书文件
+
+% \cleardoublepage % 确保参考文献从新的一页开始
+% \phantomsection
+% \addcontentsline{toc}{chapter}{参考论文}
+% \bibliography{References/Papers/papers.bib}
+
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{chapter}{参考网站}
+% \bibliography{References/Websites/websites}
+
+\end{document}
+% ====================== End of main.tex ====================

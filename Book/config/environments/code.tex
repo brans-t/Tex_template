@@ -1,0 +1,163 @@
+% ======================
+% 全局代码样式（基于 listings）
+% ======================
+
+\definecolor{codebg}{RGB}{245,245,245}       % 代码背景色
+\definecolor{codeframe}{RGB}{220,220,220}    % 代码边框色
+
+\lstset{
+  basicstyle=\small\ttfamily,                         % 基本字体样式：小号等宽字体
+  backgroundcolor=\color{codebg},                    % 代码背景色
+  frame=single,                                      % 代码框架类型：单线框
+  framesep=5pt,                                      % 代码框与框线的间距
+  rulecolor=\color{codeframe},                       % 框线颜色
+  framerule=0.8pt,                                   % 框线宽度
+  %
+  numbers=left,                                      % 行号显示在左边
+  numberstyle=\footnotesize\color{gray},                     % 行号样式：灰色小号字体
+  numbersep=5pt,                                     % 行号与代码的间距
+  stepnumber=1,                                      % 每隔几行显示一个行号
+  firstnumber=1,                                     % 起始行号
+  %
+  tabsize=4,                                         % Tab 等于几个空格
+  showspaces=false,                                  % 不显示空格符号
+  showstringspaces=false,                            % 字符串中的空格不显示特殊符号
+  showtabs=false,                                    % 不显示 Tab 符号
+  breaklines=true,                                   % 自动换行
+  breakatwhitespace=false,                           % 是否仅在空格处换行
+  prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}}, % 换行前标记符
+  %
+  keywordstyle=\color[RGB]{0,0,255}\bfseries,       % 关键字样式：蓝色加粗
+  commentstyle=\color[RGB]{34,139,34}\itshape,      % 注释样式：绿色斜体
+  stringstyle=\color[RGB]{178,34,34},               % 字符串样式：红色
+  identifierstyle=\color{black},                    % 标识符样式：黑色
+  %
+  captionpos=b,                                      % 标题位置：下方
+  xleftmargin=15pt,                                  % 左边距
+  xrightmargin=5pt,                                  % 右边距
+  keepspaces=true,                                   % 保留空格
+  % escapeinside={@}{@},                               % 在代码中可使用 @…@ 转义 LaTeX
+  aboveskip=1em,                                     % 代码块上方间距
+  belowskip=1em                                      % 代码块下方间距（注意最后一行不要逗号）
+}
+
+
+% ======================
+% 语言定义
+% ======================
+
+% --- Python ---
+\lstdefinelanguage{Python}{
+  keywords={False,None,True,and,as,assert,async,await,break,class,continue,def,
+            del,elif,else,except,finally,for,from,global,if,import,in,is,lambda,
+            nonlocal,not,or,pass,raise,return,try,while,with,yield},
+  keywords=[2]{self,cls,__init__,__name__,__main__},
+  keywords=[3]{print,input,len,str,int,float,list,dict,set,tuple,range},
+  sensitive=true,
+  comment=[l]{\#},
+  morecomment=[s]{"""}{"""},
+  morecomment=[s]{'''}{'''},
+  string=[b]',
+  string=[b]",
+  morestring=[s]{r'}{'},
+  morestring=[s]{r"}{"}
+}
+
+% --- MATLAB ---
+\lstdefinelanguage{Matlab}{
+  keywords={break,case,catch,classdef,continue,else,elseif,end,for,function,
+            global,if,otherwise,parfor,persistent,return,spmd,switch,try,while},
+  keywords=[2]{pi,eps,inf,nan,ans},
+  keywords=[3]{plot,sin,cos,exp,log,mean,std},
+  sensitive=false,
+  comment=[l]{\%},
+  morecomment=[s]{\%\{}{\%\}},
+  string=[b]',
+  string=[b]"
+}
+
+% --- C ---
+\lstdefinelanguage{C}{
+  keywords={auto,break,case,char,const,continue,default,do,double,else,enum,
+            extern,float,for,goto,if,inline,int,long,register,restrict,return,
+            short,signed,sizeof,static,struct,switch,typedef,union,unsigned,
+            void,volatile,while,_Bool,_Complex,_Imaginary},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  string=[b]',
+  string=[b]",
+  alsoletter=\#,
+  morekeywords=[2]{printf,scanf,malloc,free,sizeof}
+}
+
+% --- Mathematica ---
+\lstdefinelanguage{Mathematica}{
+  keywords={If,Do,For,While,Module,Block,With,Catch,Throw,Return,Break,Continue,
+            Function,Pattern,Set,SetDelayed,Rule,RuleDelayed,ReplaceAll,
+            ReplaceRepeated,True,False,Null,List,Table,Map,Apply,Flatten},
+  morekeywords=[2]{Sin,Cos,Log,Integrate,D,Plot,Solve,Expand},
+  sensitive=true,
+  comment=[l]{(*)},
+  morecomment=[l]{*)},
+  string=[b]",
+  alsoletter={@,?,\#},
+  morestring=[b]`
+}
+
+% --- R ---
+\lstdefinelanguage{R}{
+  keywords={function,if,in,else,for,while,repeat,break,next,return,switch,
+            try,tryCatch,stop,warning,require,library,attach,detach,source},
+  keywords=[2]{c,matrix,data.frame,list,vector,array,table},
+  keywords=[3]{mean,sd,plot,hist,lm,glm},
+  sensitive=true,
+  comment=[l]{\#},
+  string=[b]',
+  string=[b]",
+  otherkeywords={!,!=,~,$,*,\&,\%/\%,\%*\%,\%\%,<-,<<-,->,->>,=,==,>,<,>=,<=}
+}
+
+% ======================
+% 可分割算法环境
+% ======================
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+    \begin{center}
+      \refstepcounter{algorithm}% New algorithm
+      \hrule height.8pt depth0pt \kern4pt% \@fs@pre for \@fs@ruled
+      \parskip 0pt
+      \renewcommand{\caption}[2][\relax]{% Make a new \caption
+        {\raggedright\textbf{\fname@algorithm~\thealgorithm: ##2}\par}%
+        \ifx\relax##1\relax % #1 is \relax
+          \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+        \else % #1 is not \relax
+          \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+        \fi
+        \kern2pt\hrule\kern2pt
+     }
+  }
+  {% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+   \end{center}
+  }
+\makeatother
+
+% 算法列表
+\providecommand{\listofalgorithms}{\listof{algorithm}{List of Algorithms}}
+
+% ======================
+% 自定义代码环境
+% ======================
+\lstnewenvironment{pythoncode}[1][]    {\lstset{language=Python,#1}}{}
+\lstnewenvironment{matlabcode}[1][]    {\lstset{language=Matlab,#1}}{}
+\lstnewenvironment{ccode}[1][]         {\lstset{language=C,#1}}{}
+\lstnewenvironment{mathematicacode}[1][]{\lstset{language=Mathematica,#1}}{}
+\lstnewenvironment{rcode}[1][]         {\lstset{language=R,#1}}{}
+
+% ======================
+% 辅助命令
+% ======================
+\newcommand{\inlinecode}[1]{\colorbox{codebg}{\ttfamily #1}}
+\newcommand{\inputcode}[2][]{\lstinputlisting[language=#1]{#2}}

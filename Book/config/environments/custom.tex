@@ -1,0 +1,42 @@
+% ======================
+%  自定义样式与环境
+% ======================
+
+% ---------- 颜色定义 ----------
+\usepackage{xcolor}
+\definecolor{highlightcolor}{RGB}{255,230,179} % 淡黄高亮
+\definecolor{myred}{RGB}{204,26,26}           % 强调文字
+
+% ---------- 文字样式 ----------
+\usepackage[normalem]{ulem}          % 波浪线 \uwave
+\newcommand{\hl}[1]{\colorbox{highlightcolor}{#1}}
+% \newcommand{\uline}[1]{\underline{#1}}
+\newcommand{\wline}[1]{\uwave{#1}}
+\newcommand{\myemph}[1]{\textcolor{myred}{#1}}
+
+% ---------- 超链接 ----------
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks   = true,
+    linkcolor    = black,
+    citecolor    = black,
+    urlcolor     = blue,
+    filecolor    = magenta,
+    pdfstartview = Fit,
+    breaklinks   = true
+}
+
+% ---------- 行距 ----------
+\usepackage{setspace}
+\onehalfspacing                    % 1.5 倍行距
+\setlength{\headheight}{14.5pt}   % fancyhdr 推荐值
+
+% ---------- 图片搜索路径 ----------
+\usepackage{graphicx}
+\graphicspath{%
+  {config/cover/}%
+  {Chapters/chapter1/images/}%
+  {Chapters/chapter2/images/}%
+  {Chapters/chapter3/images/}%
+  {images/}%
+}

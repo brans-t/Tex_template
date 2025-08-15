@@ -1,0 +1,32 @@
+% ====================== _config.tex ======================
+% 文档配置与全局参数定义
+% ----------------------------------------------------------
+
+% -------------------- 文档元信息 --------------------
+\def\myTitle{主标题}               % 文档标题
+\def\myAuthor{author}                                   % 作者
+\def\myDateCover{封面日期：\today}                     % 封面日期
+\def\myDateForeword{前言页显示日期：\today}             % 前言日期
+\def\mySubheading{——副标题}               % 副标题
+
+% -------------------- 前言内容 --------------------
+\def\myForeword{前言标题}                              % 前言标题
+\def\myForewordText{                                   % 前言正文
+    这里是前言内容。
+}
+
+% -------------------- 导入全局宏包 --------------------
+\input{\path/package.tex}                              % 宏包加载
+
+% -------------------- 导入环境配置 --------------------
+\input{\path/environments/theorem.tex}                 % 定理环境
+\input{\path/environments/code.tex}                    % 代码环境
+% \input{\path/environments/figure.tex}                  % 图片环境
+\input{\path/environments/custom.tex}                  % 自定义文字环境
+
+% -------------------- 封面模板选择 --------------------
+% 默认使用索引为 1 的封面配置
+\def\myIndex{1}
+\input{\path/cover/cover_package_\myIndex.tex}
+
+% ====================== End of _config.tex ======================

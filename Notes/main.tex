@@ -1,0 +1,214 @@
+% ======================== main.tex ========================
+% 主控文件：整合所有配置与内容
+% ----------------------------------------------------------
+
+% 文档类
+\documentclass[12pt, a4paper, oneside, UTF8]{ctexbook}
+
+% =============================
+% 宏包导入
+% =============================
+\usepackage{amsmath}          % 提供各种数学环境和命令
+\usepackage{amssymb}          % 数学符号
+\usepackage{amsthm}           % 定理、引理等环境
+\usepackage{bm}               % 数学粗体
+\usepackage{mathrsfs}         % 花体字母
+
+\usepackage{geometry}         % 页面布局
+\usepackage{setspace}         % 行距控制
+\usepackage{graphicx}         % 插入图片
+\usepackage{caption}          % 图表标题格式
+\usepackage{subcaption}       % 子图标题
+\usepackage{placeins}         % 控制浮动体位置
+\usepackage{booktabs}         % 高质量表格线
+\usepackage{enumitem}         % 自定义列表样式
+\usepackage[bottom]{footmisc} % 脚注靠底
+\usepackage{fancyhdr}         % 页眉页脚
+
+\usepackage[dvipsnames, svgnames]{xcolor} % 定义颜色
+\usepackage{pifont}           % 特殊符号
+\usepackage{tcolorbox}        % 彩色框
+\tcbuselibrary{skins,breakable}
+
+\usepackage{listings}         % 代码高亮
+\usepackage{algorithm}        % 算法环境
+\usepackage[noend]{algpseudocode} % 伪代码，无 end 标记
+\usepackage{etoolbox}         % 宏编程工具
+
+\usepackage{hyperref}         % 超链接与交叉引用
+\usepackage{url}              % 格式化 URL 和 DOI
+\usepackage{float}            % 浮动体控制
+\usepackage{appendix}         % 附录
+\usepackage{animate}          % 动画支持
+\usepackage{tikz}             % 绘图
+
+% =============================
+% 颜色定义
+% =============================
+\definecolor{greenshade}{rgb}{0.9, 1, 0.9}
+\definecolor{green}{rgb}{0.2, 0.6, 0.2}
+\definecolor{axmBack}{rgb}{0.95, 0.95, 1}
+\definecolor{axmFrame}{rgb}{0.5, 0.5, 1}
+\definecolor{axmTitle}{rgb}{0.2, 0.2, 0.6}
+\definecolor{lightblue}{rgb}{0.8, 0.9, 1}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{lightyellow}{rgb}{1, 0.98, 0.9}
+\definecolor{lightcyan}{rgb}{0.9, 1, 1}
+\definecolor{SkyBlue}{rgb}{0.2,0.6,1}
+\definecolor{codebg}{RGB}{245,245,245}    % 代码背景色
+\definecolor{codeframe}{RGB}{220,220,220} % 代码边框色
+
+% =============================
+% 定理与盒子环境设置
+% =============================
+% 斜体样式
+\newtheoremstyle{mythm}{\topsep}{\topsep}{\itshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{mythm}
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{axiom}{公理}[chapter]
+
+% 非斜体样式
+\newtheoremstyle{mydef}{\topsep}{\topsep}{\upshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{mydef}
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{example}{例}[chapter]
+\newtheorem{remark}{注}[chapter]
+
+% 自定义证明与解答环境
+\renewenvironment{proof}{\indent\textcolor{SkyBlue}{\textbf{证明.}}\;}{\qed\par}
+\newenvironment{solution}{\indent\textcolor{SkyBlue}{\textbf{解.}}\;}{\qed\par}
+
+% tcolorbox 自定义环境
+\newtcolorbox[auto counter, number within=chapter, list inside=mydefbox]{mydefinition}[1][]{
+  enhanced, breakable, colback=greenshade, colframe=green, arc=3mm,
+  title={\textbf{\thetcbcounter\ #1}}, coltitle=black, fonttitle=\bfseries, #1
+}
+\newtcolorbox[auto counter, number within=chapter]{axiombox}[1][]{
+  enhanced, breakable, colback=axmBack, colframe=axmFrame, arc=3mm,
+  title={\textbf{\thetcbcounter\ #1}}, coltitle=axmTitle, fonttitle=\bfseries, #1
+}
+\newtcolorbox{Notice}[1][注意]{
+  colback=lightblue, colframe=black, arc=3mm, title={\textbf{#1}}, coltitle=white, fonttitle=\bfseries
+}
+\newtcolorbox{Proof}{
+  colback=lightgray, colframe=black, arc=3mm, title={\textbf{证明}}, coltitle=black, fonttitle=\bfseries
+}
+\newtcolorbox{Derivation}[1][]{
+  enhanced, breakable, colback=lightyellow, colframe=black, arc=3mm,
+  title={\textbf{推导}}, coltitle=white, fonttitle=\bfseries, boxsep=2mm, #1
+}
+\newtcolorbox{examplebox}[1][示例]{
+  colback=lightcyan, colframe=black, arc=3mm, title={\textbf{#1}}, coltitle=black, fonttitle=\bfseries
+}
+
+% 快捷别名
+\let\defn\definition
+% \newenvironment{axiom}[1][]{\begin{axiombox}[#1]}{\end{axiombox}}
+
+% =============================
+% 代码与算法环境设置
+% =============================
+% 全局代码样式
+\lstset{
+  basicstyle=\small\ttfamily, backgroundcolor=\color{codebg}, frame=single, framesep=5pt,
+  rulecolor=\color{codeframe}, framerule=0.8pt, numbers=left, numberstyle=\footnotesize\color{gray},
+  numbersep=5pt, stepnumber=1, firstnumber=1, tabsize=4, showspaces=false,
+  showstringspaces=false, showtabs=false, breaklines=true, breakatwhitespace=false,
+  prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+  keywordstyle=\color[RGB]{0,0,255}\bfseries, commentstyle=\color[RGB]{34,139,34}\itshape,
+  stringstyle=\color[RGB]{178,34,34}, identifierstyle=\color{black}, captionpos=b,
+  xleftmargin=15pt, xrightmargin=5pt, keepspaces=true, aboveskip=1em, belowskip=1em
+}
+
+% 语言定义
+\lstdefinelanguage{Python}{keywords={...}, sensitive=true, comment=[l]{\#}, ...}
+\lstdefinelanguage{Matlab}{keywords={...}, sensitive=false, comment=[l]{\%}, ...}
+\lstdefinelanguage{C}{keywords={...}, sensitive=true, morecomment=[l]{//}, ...}
+\lstdefinelanguage{Mathematica}{keywords={...}, sensitive=true, comment=[l]{(*)}, ...}
+\lstdefinelanguage{R}{keywords={...}, sensitive=true, comment=[l]{\#}, ...}
+
+% 自定义代码环境
+\lstnewenvironment{pythoncode}[1][]{\lstset{language=Python,#1}}{}
+\lstnewenvironment{matlabcode}[1][]{\lstset{language=Matlab,#1}}{}
+\lstnewenvironment{ccode}[1][]{\lstset{language=C,#1}}{}
+\lstnewenvironment{mathematicacode}[1][]{\lstset{language=Mathematica,#1}}{}
+\lstnewenvironment{rcode}[1][]{\lstset{language=R,#1}}{}
+
+% 可分割算法环境
+\makeatletter
+\newenvironment{breakablealgorithm}{%
+  \begin{center}\refstepcounter{algorithm}\hrule height.8pt depth0pt \kern4pt\parskip 0pt\renewcommand{\caption}[2][\relax]{{\raggedright\textbf{\fname@algorithm~\thealgorithm: ##2}\par}\ifx\relax##1\relax\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}\else\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}\fi\kern2pt\hrule\kern2pt}}{%
+  \kern2pt\hrule\relax\end{center}}
+\makeatother
+
+% 算法列表
+\providecommand{\listofalgorithms}{\listof{algorithm}{List of Algorithms}}
+
+% 辅助命令
+\newcommand{\inlinecode}[1]{\colorbox{codebg}{\ttfamily #1}}
+\newcommand{\inputcode}[2][]{\lstinputlisting[language=#1]{#2}}
+
+% ==========================================================
+% 文档正文开始
+% ==========================================================
+\begin{document}
+
+% 封面
+% (此处通常放置封面代码，例如：\input{config/cover})
+\title{文档标题}
+\author{作者}
+\date{\today}
+\maketitle
+
+% 目录
+\tableofcontents
+\clearpage
+
+% ======================== 正文部分 ========================
+\chapter{第一章：引言}
+\section{简介}
+这是第一章的内容。
+
+\chapter{第二章：方法}
+这是第二章的内容。
+
+\chapter{第三章：实验}
+这是第三章的内容。
+
+% ======================== 附录（可选） =====================
+\appendix % 切换到附录模式
+\chapter{附录 A: 代码示例}
+\label{app:code}
+
+\section{代码示例}
+\begin{breakablealgorithm}
+\caption{数据标准化动画}
+\begin{algorithmic}[1]
+\State %代码描述
+\end{algorithmic}
+
+\begin{lstlisting}[language=Mathematica, caption=Mathematica 代码]
+(* 这是一个 Mathematica 代码示例 *)
+data = Range[10] // N;
+mean = Mean[data];
+stdev = StandardDeviation[data];
+normalizedData = (data - mean) / stdev;
+ListPlot[{data, normalizedData},
+  PlotLegends -> {"原始数据", "标准化数据"},
+  PlotLabel -> "数据标准化示例"]
+\end{lstlisting}
+\end{breakablealgorithm}
+
+% ======================== 参考文献（可选） ================
+\newpage
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{参考书}
+\bibliographystyle{plain}
+\bibliography{ref}
+
+\end{document}
+% ====================== End of main.tex ====================

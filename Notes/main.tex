@@ -82,13 +82,13 @@
 \newenvironment{solution}{\indent\textcolor{SkyBlue}{\textbf{解.}}\;}{\qed\par}
 
 % tcolorbox 自定义环境
-\newtcolorbox[auto counter, number within=chapter, list inside=mydefbox]{mydefinition}[1][]{
+\newtcolorbox[auto counter, number within=chapter, list inside=mydefbox]{defn}[1][]{
   enhanced, breakable, colback=greenshade, colframe=green, arc=3mm,
-  title={\textbf{\thetcbcounter\ #1}}, coltitle=black, fonttitle=\bfseries, #1
+  title={\textbf{定义\thetcbcounter\ #1}}, coltitle=black, fonttitle=\bfseries, #1
 }
 \newtcolorbox[auto counter, number within=chapter]{axiombox}[1][]{
   enhanced, breakable, colback=axmBack, colframe=axmFrame, arc=3mm,
-  title={\textbf{\thetcbcounter\ #1}}, coltitle=axmTitle, fonttitle=\bfseries, #1
+  title={\textbf{公理\thetcbcounter\ #1}}, coltitle=axmTitle, fonttitle=\bfseries, #1
 }
 \newtcolorbox{Notice}[1][注意]{
   colback=lightblue, colframe=black, arc=3mm, title={\textbf{#1}}, coltitle=white, fonttitle=\bfseries
@@ -105,7 +105,7 @@
 }
 
 % 快捷别名
-\let\defn\definition
+% \let\defn\definition
 % \newenvironment{axiom}[1][]{\begin{axiombox}[#1]}{\end{axiombox}}
 
 % =============================
@@ -171,6 +171,9 @@
 \chapter{第一章：引言}
 \section{简介}
 这是第一章的内容。
+\begin{defn}
+  aaa
+\end{defn}
 
 \chapter{第二章：方法}
 这是第二章的内容。
